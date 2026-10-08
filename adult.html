@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elder Dashboard - NeighborHelp India</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-flex">
+            <div>
+                <h1>NeighborHelp India 🤝</h1>
+                <p class="subtitle">Welcome back, <span id="display-profile-name">Elder</span> (Seeker Dashboard)</p>
+            </div>
+            <div class="header-controls">
+                <button id="elder-mode-btn" class="btn-elder-toggle">⚡ Enable Elder Mode (बड़ा फॉन्ट)</button>
+                <a href="index.html" class="logout-link">Switch Profile ↩️</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <div class="left-column">
+            <section class="form-section">
+                <h2>Request a Helping Hand</h2>
+                <p class="form-intro">Describe what you need help with below. Our system will safely process and list it for local volunteers.</p>
+                
+                <form id="task-form">
+                    <div class="form-group">
+                        <label for="task-title">What do you need help with?</label>
+                        <input type="text" id="task-title" placeholder="e.g., Reading banking document details" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-desc">Short Description</label>
+                        <textarea id="task-desc" rows="4" placeholder="Explain what neighbors can do to assist... You can type in English, Hindi, or Hinglish!" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-location">Your Location/Neighborhood</label>
+                            <input type="text" id="task-location" placeholder="e.g., Connaught Place, New Delhi" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-category">Category</label>
+                            <select id="task-category">
+                                <option value="Household">Household Chore</option>
+                                <option value="Tech Support">Tech Support</option>
+                                <option value="Heavy Lifting">Heavy Lifting</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="task-urgent">
+                        <label for="task-urgent" class="urgent-label">⚠️ Mark as High Priority / Urgent Need</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Post Request Securely</button>
+                </form>
+            </section>
+
+            <section class="profile-widget leaderboard-widget">
+                <h3>Top Neighborhood Helpers 🏆</h3>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Verified local youth earning Mitra Coins nearby:</p>
+                <div id="leaderboard-container">
+                    </div>
+            </section>
+        </div>
+
+        <section class="board-section">
+            <div class="board-header">
+                <h2>All Neighborhood Requests Status</h2>
+                <div class="controls-wrapper">
+                    <input type="text" id="search-input" placeholder="🔍 Filter posts or keywords...">
+                    <select id="filter-select">
+                        <option value="All">All Categories</option>
+                        <option value="Household">Household Chore</option>
+                        <option value="Tech Support">Tech Support</option>
+                        <option value="Heavy Lifting">Heavy Lifting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="task-board" class="task-board">
+                </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

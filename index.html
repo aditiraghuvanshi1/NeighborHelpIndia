@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NeighborHelp India</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <header class="login-header">
+            <div class="live-pulse-bar" style="background: #101f35; color: #a3b8cc; font-size: 0.9rem; text-align: center; padding: 6px 0; border-bottom: 1px solid #1e2d42;">
+                  <span style="display: inline-block; width: 8px; height: 8px; background: #27ae60; border-radius: 50%; margin-right: 6px; animation: blink 1.5s infinite;"></span>
+                 <strong>Namma Delhi Hub Live:</strong> 42 Elders Online | 18 Active Helpers En Route | 1,240 Total Mitra Coins Circulating Locally
+             </div>
+            <h1>NeighborHelp India 🤝</h1>
+            <p>Connect. Support. Build Community.</p>
+        </header>
+
+        <main class="login-card">
+            <h2>Create Your Profile</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="user-name">Full Name</label>
+                    <input type="text" id="user-name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="user-age">Age</label>
+                    <input type="number" id="user-age" placeholder="Enter your age" min="10" max="120" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Choose Your Role</label>
+                    <div class="role-selector-grid">
+                        <label class="role-option">
+                            <input type="radio" name="user-role" value="adult" checked>
+                            <div class="role-card-inner">
+                                <span class="role-icon">👵👴</span>
+                                <h3>Elder / Adult</h3>
+                                <p>I need assistance with quick daily tasks.</p>
+                            </div>
+                        </label>
+
+                        <label class="role-option">
+                            <input type="radio" name="user-role" value="helper">
+                            <div class="role-card-inner">
+                                <span class="role-icon">💪⚡</span>
+                                <h3>Youth / Helper</h3>
+                                <p>I want to volunteer and earn Mitra Coins.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enter Platform</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Internal login routing mechanism
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('user-name').value;
+            const age = document.getElementById('user-age').value;
+            const role = document.querySelector('input[name="user-role"]:checked').value;
+
+            const activeUser = { name, age, role, coins: 0 };
+            localStorage.setItem('neighborActiveUser', JSON.stringify(activeUser));
+
+            // Populate sample helper statistics for the leaderboards panel
+            if(!localStorage.getItem('helperLeaderboard')) {
+                const initialLeaderboard = [
+                    { name: "Arjun Mehta", coins: 140, badge: "Neighborhood Hero 🦸‍♂️" },
+                    { name: "Priya Sharma", coins: 85, badge: "Local Helper 🛠️" },
+                    { name: "Rohan Das", coins: 40, badge: "Getting Started 🌱" }
+                ];
+                localStorage.setItem('helperLeaderboard', JSON.stringify(initialLeaderboard));
+            }
+
+            // Redirect exactly to the targeted dashboard files
+            if (role === 'adult') {
+                window.location.href = 'adult.html';
+            } else {
+                window.location.href = 'helper.html';
+            }
+        });
+    </script>
+</body>
+</html>

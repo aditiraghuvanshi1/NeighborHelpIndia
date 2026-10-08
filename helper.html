@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helper Dashboard - NeighborHelp India</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container header-flex">
+            <div>
+                <h1>NeighborHelp India 🤝</h1>
+                <p class="subtitle">Welcome back, Volunteer Agent <span id="display-profile-name">Helper</span></p>
+            </div>
+            <a href="index.html" class="logout-link">Switch Profile ↩️</a>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        <div class="left-column">
+            <section class="profile-widget helper-wallet">
+                <h3>Your Volunteer Wallet 🪙</h3>
+                <p class="karma-container"><strong id="karma-score">0</strong> Mitra Coins</p>
+                <p class="karma-badge" id="karma-badge-text">Getting Started 🌱</p>
+            </section>
+
+            <section class="form-section milestone-card">
+                <h3>Mitra Coins Milestone Rewards 🎯</h3>
+                <p class="form-intro" style="margin-bottom: 15px;">Unlock local incentives and digital credentials as you support your community:</p>
+                <ul class="milestone-list">
+                    <li id="ms-1" class="locked">🔒 <strong>50 Coins:</strong> Silver Savior Title Badge</li>
+                    <li id="ms-2" class="locked">🔒 <strong>100 Coins:</strong> Certified Community Hero Document</li>
+                    <li id="ms-3" class="locked">🔒 <strong>200 Coins:</strong> Free Local Metro/Bus Ride Pass Voucher</li>
+                </ul>
+            </section>
+        </div>
+
+        <section class="board-section">
+            <div class="board-header">
+                <h2>Available Micro-Volunteering Tasks Near You</h2>
+                <div class="controls-wrapper">
+                    <input type="text" id="search-input" placeholder="🔍 Search locations, keywords, or needs...">
+                    <select id="filter-select">
+                        <option value="All">All Categories</option>
+                        <option value="Household">Household Chore</option>
+                        <option value="Tech Support">Tech Support</option>
+                        <option value="Heavy Lifting">Heavy Lifting</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="task-board" class="task-board">
+                </div>
+        </section>
+    </main>
+
+    <div id="contact-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="close-modal-btn">&times;</button>
+            <h2>Task Claimed Successfully! 🎉</h2>
+            <p id="modal-body-text">Loading instructions...</p>
+            <p class="modal-note" style="margin-top:10px; color:#c0392b; font-weight:bold;">✨ You have been rewarded Mitra Coins for stepping up!</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
