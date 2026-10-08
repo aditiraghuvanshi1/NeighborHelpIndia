@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elder Dashboard - NeighborHelp India</title>
+    <title>Elder Dashboard - ElderEase</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body data-page-role="adult">
@@ -11,7 +11,7 @@
     <header class="main-header">
         <div class="container header-flex">
             <div>
-                <h1>NeighborHelp India 🤝</h1>
+                <h1>ElderEase 🤝</h1>
                 <p class="subtitle">Welcome back, <strong id="display-profile-name">Elder / Seeker</strong> (Seeker Dashboard)</p>
             </div>
             <div class="header-controls">
@@ -37,7 +37,7 @@
 
     <main class="container main-content">
         <div class="left-column">
-            <!-- 1. EMERGENCY MEDICAL & DOCTORS DIRECTORY -->
+            <!-- 1. EMERGENCY MEDICAL & DOCTORS DIRECTORY (PICTURE 1 FIX) -->
             <section class="form-section emergency-section">
                 <div class="emergency-header">
                     <h2>🚨 Emergency Helplines &amp; Doctors</h2>
@@ -45,11 +45,36 @@
                 </div>
                 <p class="form-intro">Immediate emergency response contacts and your saved medical profile:</p>
                 
-                <div class="emergency-quick-dials">
-                    <button type="button" class="emergency-dial-btn ambulance-btn" onclick="triggerEmergencyCall('108', 'Ambulance')">🚑 Ambulance (108)</button>
-                    <button type="button" class="emergency-dial-btn national-btn" onclick="triggerEmergencyCall('112', 'National Emergency')">🚨 Emergency (112)</button>
-                    <button type="button" class="emergency-dial-btn medical-btn" onclick="triggerEmergencyCall('102', 'Medical Helpline')">🏥 Medical Helpline (102)</button>
-                    <button type="button" class="emergency-dial-btn maps-btn" onclick="findNearbyHospitals()">📍 Nearby Hospitals</button>
+                <!-- 2x2 Clean Grid -->
+                <div class="emergency-grid-2x2">
+                    <button type="button" class="emergency-box ambulance-box" onclick="triggerEmergencyCall('108', 'Ambulance')">
+                        <span class="em-icon">🚑</span>
+                        <div>
+                            <strong>Ambulance</strong>
+                            <span>Dial 108</span>
+                        </div>
+                    </button>
+                    <button type="button" class="emergency-box national-box" onclick="triggerEmergencyCall('112', 'National Emergency')">
+                        <span class="em-icon">🚨</span>
+                        <div>
+                            <strong>National Help</strong>
+                            <span>Dial 112</span>
+                        </div>
+                    </button>
+                    <button type="button" class="emergency-box medical-box" onclick="triggerEmergencyCall('102', 'Medical Helpline')">
+                        <span class="em-icon">🏥</span>
+                        <div>
+                            <strong>Medical Care</strong>
+                            <span>Dial 102</span>
+                        </div>
+                    </button>
+                    <button type="button" class="emergency-box hospitals-box" onclick="findNearbyHospitals()">
+                        <span class="em-icon">📍</span>
+                        <div>
+                            <strong>Hospitals</strong>
+                            <span>Near Me</span>
+                        </div>
+                    </button>
                 </div>
 
                 <div class="emergency-saved-info">
@@ -77,7 +102,7 @@
                 </div>
             </section>
 
-            <!-- 2. ACTIVE DAILY HEALTH & ROUTINE LOG SECTION -->
+            <!-- 2. ACTIVE DAILY HEALTH & ROUTINE LOG SECTION (PICTURE 2 FIX) -->
             <section class="form-section daily-log-section">
                 <div class="emergency-header">
                     <h2>📋 Active Daily Health &amp; Routine Logs</h2>
@@ -85,30 +110,30 @@
                 </div>
                 <p class="form-intro">Keep track of your daily medicines, log your vitals, and generate caregiver updates:</p>
 
-                <!-- MEDICINE SCHEDULE CHECKLIST -->
-                <div class="medication-checklist-card">
+                <!-- HORIZONTAL MEDICINE TRACKER -->
+                <div class="medication-horizontal-card">
                     <h4>💊 Today's Medication Tracker</h4>
-                    <div class="med-checkbox-grid">
-                        <label class="med-toggle-item">
+                    <div class="med-horizontal-row">
+                        <label class="med-dose-chip">
                             <input type="checkbox" id="med-morning" onchange="toggleMedicationLog('Morning')">
                             <span>🌅 Morning Dose</span>
                         </label>
-                        <label class="med-toggle-item">
+                        <label class="med-dose-chip">
                             <input type="checkbox" id="med-afternoon" onchange="toggleMedicationLog('Afternoon')">
                             <span>☀️ Afternoon Dose</span>
                         </label>
-                        <label class="med-toggle-item">
+                        <label class="med-dose-chip">
                             <input type="checkbox" id="med-night" onchange="toggleMedicationLog('Night')">
                             <span>🌙 Night Dose</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- HEALTH LOG ENTRY (BP, SUGAR, SYMPTOMS) -->
+                <!-- HEALTH LOG ENTRY (WITH EMOJI-ONLY MIC) -->
                 <div class="health-log-entry-card" style="margin-top: 15px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
                         <label for="health-log-input" style="margin-bottom:0;">🩺 Health Log (BP, Sugar, Symptoms):</label>
-                        <button type="button" class="mic-field-btn" style="position:static;" onclick="startVoiceForField('health-log-input', 'Health Log')">🎙️ Speak</button>
+                        <button type="button" class="mic-round-btn" title="Speak Health Log" onclick="startVoiceForField('health-log-input', 'Health Log')">🎙️</button>
                     </div>
                     <textarea id="health-log-input" rows="2" placeholder="e.g., BP 130/85, took insulin, slight back pain this morning..."></textarea>
                     
@@ -127,7 +152,7 @@
                 </div>
             </section>
 
-            <!-- 3. REQUEST A TASK FORM WITH INDIVIDUAL VOICE INPUTS -->
+            <!-- 3. REQUEST A TASK FORM (PICTURE 3 FIX: MIC INSIDE INPUT) -->
             <section class="form-section">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;">
                     <h2>Request a Helping Hand</h2>
@@ -139,35 +164,35 @@
                         </select>
                     </div>
                 </div>
-                <p class="form-intro">You can type or tap the <strong>🎙️ button</strong> next to any field to speak in English or Hindi:</p>
+                <p class="form-intro">Tap the 🎙️ button inside any box to speak in English or Hindi:</p>
                 <p id="voice-status-text" class="voice-status-indicator" style="display:none;"></p>
 
                 <form id="task-form">
-                    <!-- TITLE FIELD WITH MIC -->
+                    <!-- TITLE FIELD WITH INLINE MIC -->
                     <div class="form-group">
                         <label for="task-title">What do you need help with? (Title)</label>
-                        <div class="input-with-mic">
+                        <div class="input-with-end-mic">
                             <input type="text" id="task-title" placeholder="e.g., Reading banking document details" required>
-                            <button type="button" class="mic-field-btn" onclick="startVoiceForField('task-title', 'Title')">🎙️</button>
+                            <button type="button" class="field-mic-btn" onclick="startVoiceForField('task-title', 'Title')">🎙️</button>
                         </div>
                     </div>
 
-                    <!-- SHORT DESCRIPTION FIELD WITH MIC -->
+                    <!-- SHORT DESCRIPTION WITH INLINE MIC -->
                     <div class="form-group">
                         <label for="task-desc">Short Description</label>
-                        <div class="input-with-mic textarea-mic-wrapper">
+                        <div class="input-with-end-mic textarea-mic-box">
                             <textarea id="task-desc" rows="4" placeholder="Explain what neighbors can do to assist..." required></textarea>
-                            <button type="button" class="mic-field-btn mic-textarea-btn" onclick="startVoiceForField('task-desc', 'Description')">🎙️</button>
+                            <button type="button" class="field-mic-btn mic-inside-textarea" onclick="startVoiceForField('task-desc', 'Description')">🎙️</button>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <!-- LOCATION FIELD WITH MIC -->
+                        <!-- LOCATION FIELD WITH INLINE MIC -->
                         <div class="form-group">
                             <label for="task-location">Your Location/Address</label>
-                            <div class="input-with-mic">
+                            <div class="input-with-end-mic">
                                 <input type="text" id="task-location" placeholder="e.g., Connaught Place, New Delhi" required>
-                                <button type="button" class="mic-field-btn" onclick="startVoiceForField('task-location', 'Location / Address')">🎙️</button>
+                                <button type="button" class="field-mic-btn" onclick="startVoiceForField('task-location', 'Location / Address')">🎙️</button>
                             </div>
                         </div>
 
@@ -245,7 +270,7 @@
         </div>
     </main>
 
-    <!-- COMPLETION & FRIENDLY RATING MODAL -->
+    <!-- 4. RATING MODAL (PICTURE 4 FIX: HORIZONTAL + WORKING SELECTION) -->
     <div id="rating-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close-btn" id="close-rating-modal-btn">&times;</button>
@@ -254,10 +279,17 @@
             <p>Did volunteer <strong id="rating-helper-name">the helper</strong> finish the work satisfactorily?</p>
             
             <div class="rating-choice-group">
-                <label>How friendly and helpful was the volunteer?</label>
-                <div class="rating-buttons">
-                    <button type="button" class="btn rating-btn rating-selected" data-rating="friendly">😊 Very Friendly &amp; Helpful</button>
-                    <button type="button" class="btn rating-btn" data-rating="unfriendly">😐 Neutral / Needs Improvement</button>
+                <label style="margin-bottom:8px; display:block;">How friendly and helpful was the volunteer?</label>
+                <!-- SIDE-BY-SIDE HORIZONTAL RATING BUTTONS -->
+                <div class="rating-horizontal-grid">
+                    <button type="button" class="rating-option-card selected-rating" data-rating="friendly" onclick="selectRatingChoice('friendly', this)">
+                        <span class="rating-emoji">😊</span>
+                        <strong>Very Friendly &amp; Helpful</strong>
+                    </button>
+                    <button type="button" class="rating-option-card" data-rating="unfriendly" onclick="selectRatingChoice('unfriendly', this)">
+                        <span class="rating-emoji">😐</span>
+                        <strong>Neutral / Needs Improvement</strong>
+                    </button>
                 </div>
             </div>
 
