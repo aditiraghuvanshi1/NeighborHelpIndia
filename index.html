@@ -3,50 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - NeighborHelp India</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="login-body">
+    <title>Login - ElderEase</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    <div class="login-container">
-        <header class="login-header">
-            <div class="live-pulse-bar" style="background: #101f35; color: #a3b8cc; font-size: 0.9rem; text-align: center; padding: 6px 0; border-bottom: 1px solid #1e2d42;">
-                  <span style="display: inline-block; width: 8px; height: 8px; background: #27ae60; border-radius: 50%; margin-right: 6px; animation: blink 1.5s infinite;"></span>
-                 <strong>Namma Delhi Hub Live:</strong> 42 Elders Online | 18 Active Helpers En Route | 1,240 Total Mitra Coins Circulating Locally
-             </div>
-            <h1>NeighborHelp India 🤝</h1>
+        body.login-page {
+            background-color: #0d2c4a;
+            background: linear-gradient(180deg, #0e3052 0%, #0a2139 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 520px;
+        }
+
+        .login-brand {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .login-brand h1 {
+            color: #ffffff;
+            font-size: 2.1rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .login-brand p {
+            color: #9ab4cd;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .login-card-box {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 36px 32px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-card-box h2 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #1a2533;
+            margin-bottom: 22px;
+        }
+
+        .field-group {
+            margin-bottom: 18px;
+        }
+
+        .field-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #2b3a4a;
+            margin-bottom: 8px;
+        }
+
+        .field-group input[type="text"],
+        .field-group input[type="number"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #d8e0e8;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #1a2533;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .field-group input[type="text"]:focus,
+        .field-group input[type="number"]:focus {
+            border-color: #16528e;
+        }
+
+        /* 2-Column Role Selection Cards */
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 4px;
+        }
+
+        .role-grid label {
+            margin-bottom: 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* Completely hide default HTML radio circles */
+        .role-grid input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+        }
+
+        .role-box {
+            border: 1.5px solid #e1e8ef;
+            border-radius: 10px;
+            padding: 18px 12px;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .role-box .role-emoji {
+            font-size: 1.9rem;
+            line-height: 1;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .role-box h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1a2533;
+            margin-bottom: 6px;
+        }
+
+        .role-box p {
+            font-size: 0.78rem;
+            color: #6a7c92;
+            line-height: 1.35;
+        }
+
+        /* Selected Card Blue Border & Soft Background */
+        .role-grid input[type="radio"]:checked + .role-box {
+            border: 2px solid #1a5b94;
+            background-color: #f7faff;
+            box-shadow: 0 0 0 1px #1a5b94;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #10436e;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 13px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 22px;
+            transition: background 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0c3456;
+        }
+    </style>
+</head>
+<body class="login-page">
+
+    <div class="login-wrapper">
+        <header class="login-brand">
+            <h1>ElderEase 🤝</h1>
             <p>Connect. Support. Build Community.</p>
         </header>
 
-        <main class="login-card">
+        <main class="login-card-box">
             <h2>Create Your Profile</h2>
             <form id="login-form">
-                <div class="form-group">
+                <div class="field-group">
                     <label for="user-name">Full Name</label>
                     <input type="text" id="user-name" placeholder="Enter your name" required>
                 </div>
 
-                <div class="form-group">
+                <div class="field-group">
                     <label for="user-age">Age</label>
                     <input type="number" id="user-age" placeholder="Enter your age" min="10" max="120" required>
                 </div>
 
-                <div class="form-group">
+                <div class="field-group">
                     <label>Choose Your Role</label>
-                    <div class="role-selector-grid">
-                        <label class="role-option">
+                    <div class="role-grid">
+                        <label>
                             <input type="radio" name="user-role" value="adult" checked>
-                            <div class="role-card-inner">
-                                <span class="role-icon">👵👴</span>
+                            <div class="role-box">
+                                <span class="role-emoji">👵👴</span>
                                 <h3>Elder / Adult</h3>
                                 <p>I need assistance with quick daily tasks.</p>
                             </div>
                         </label>
 
-                        <label class="role-option">
+                        <label>
                             <input type="radio" name="user-role" value="helper">
-                            <div class="role-card-inner">
-                                <span class="role-icon">💪⚡</span>
+                            <div class="role-box">
+                                <span class="role-emoji">💪⚡</span>
                                 <h3>Youth / Helper</h3>
                                 <p>I want to volunteer and earn Mitra Coins.</p>
                             </div>
@@ -54,37 +217,26 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Enter Platform</button>
+                <button type="submit" class="submit-btn">Enter Platform</button>
             </form>
         </main>
     </div>
 
-    <script src="app.js"></script>
     <script>
-        // Internal login routing mechanism
         document.getElementById('login-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            const name = document.getElementById('user-name').value;
+            const name = document.getElementById('user-name').value.trim();
             const age = document.getElementById('user-age').value;
             const role = document.querySelector('input[name="user-role"]:checked').value;
 
-            const activeUser = { name, age, role, coins: 0 };
-            localStorage.setItem('neighborActiveUser', JSON.stringify(activeUser));
-
-            // Populate sample helper statistics for the leaderboards panel
-            if(!localStorage.getItem('helperLeaderboard')) {
-                const initialLeaderboard = [
-                    { name: "Arjun Mehta", coins: 140, badge: "Neighborhood Hero 🦸‍♂️" },
-                    { name: "Priya Sharma", coins: 85, badge: "Local Helper 🛠️" },
-                    { name: "Rohan Das", coins: 40, badge: "Getting Started 🌱" }
-                ];
-                localStorage.setItem('helperLeaderboard', JSON.stringify(initialLeaderboard));
-            }
-
-            // Redirect exactly to the targeted dashboard files
             if (role === 'adult') {
+                localStorage.setItem('neighborAdultUser', JSON.stringify({ name, age, role: 'adult' }));
                 window.location.href = 'adult.html';
             } else {
+                let leaders = JSON.parse(localStorage.getItem('helperLeaderboard')) || [];
+                let existing = leaders.find(l => l.name.toLowerCase() === name.toLowerCase());
+                let coins = existing ? existing.coins : 0;
+                localStorage.setItem('neighborHelperUser', JSON.stringify({ name, age, role: 'helper', coins }));
                 window.location.href = 'helper.html';
             }
         });
