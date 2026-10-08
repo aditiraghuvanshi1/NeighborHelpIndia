@@ -6,13 +6,13 @@
     <title>Elder Dashboard - NeighborHelp India</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-page-role="adult">
 
     <header class="main-header">
         <div class="container header-flex">
             <div>
                 <h1>NeighborHelp India 🤝</h1>
-                <p class="subtitle">Welcome back, <span id="display-profile-name">Elder</span> (Seeker Dashboard)</p>
+                <p class="subtitle">Welcome back, <strong id="display-profile-name">Elder / Seeker</strong> (Seeker Dashboard)</p>
             </div>
             <div class="header-controls">
                 <button id="elder-mode-btn" class="btn-elder-toggle">⚡ Enable Elder Mode (बड़ा फॉन्ट)</button>
@@ -21,28 +21,156 @@
         </div>
     </header>
 
+    <!-- DAILY REMINDER NOTIFICATION BANNER -->
+    <div class="container" style="padding-top: 0; padding-bottom: 0;">
+        <div id="daily-reminder-banner" class="daily-reminder-card">
+            <div class="reminder-content">
+                <span class="reminder-bell-icon">🔔</span>
+                <div>
+                    <h4 id="reminder-title">Daily Health &amp; Activity Reminder</h4>
+                    <p id="reminder-desc">Remember to take your prescribed doses on time and record your daily health log for family tracking.</p>
+                </div>
+            </div>
+            <button type="button" class="btn-dismiss-reminder" onclick="dismissDailyReminder()">Got it 👍</button>
+        </div>
+    </div>
+
     <main class="container main-content">
         <div class="left-column">
-            <section class="form-section">
-                <h2>Request a Helping Hand</h2>
-                <p class="form-intro">Describe what you need help with below. Our system will safely process and list it for local volunteers.</p>
+            <!-- 1. EMERGENCY MEDICAL & DOCTORS DIRECTORY -->
+            <section class="form-section emergency-section">
+                <div class="emergency-header">
+                    <h2>🚨 Emergency Helplines &amp; Doctors</h2>
+                    <span class="emergency-badge">Quick Access</span>
+                </div>
+                <p class="form-intro">Immediate emergency response contacts and your saved medical profile:</p>
                 
-                <form id="task-form">
+                <div class="emergency-quick-dials">
+                    <button type="button" class="emergency-dial-btn ambulance-btn" onclick="triggerEmergencyCall('108', 'Ambulance')">🚑 Ambulance (108)</button>
+                    <button type="button" class="emergency-dial-btn national-btn" onclick="triggerEmergencyCall('112', 'National Emergency')">🚨 Emergency (112)</button>
+                    <button type="button" class="emergency-dial-btn medical-btn" onclick="triggerEmergencyCall('102', 'Medical Helpline')">🏥 Medical Helpline (102)</button>
+                    <button type="button" class="emergency-dial-btn maps-btn" onclick="findNearbyHospitals()">📍 Nearby Hospitals</button>
+                </div>
+
+                <div class="emergency-saved-info">
+                    <h4>Your Emergency Information</h4>
+                    <p style="font-size: 0.85rem; color: #555; margin-bottom: 10px;">Saved locally for quick sharing with responders:</p>
+                    
                     <div class="form-group">
-                        <label for="task-title">What do you need help with?</label>
-                        <input type="text" id="task-title" placeholder="e.g., Reading banking document details" required>
+                        <label for="elder-contact-no">Doctor / Relative Contact Number:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="tel" id="elder-contact-no" placeholder="e.g., Dr. Verma (+91 98765 43210)">
+                            <button type="button" class="btn btn-secondary" style="width: auto; padding: 10px 14px;" onclick="callSavedDoctor()">📞 Call</button>
+                        </div>
                     </div>
 
                     <div class="form-group">
+                        <label for="elder-home-address">Your Home / Apartment Address:</label>
+                        <textarea id="elder-home-address" rows="2" placeholder="e.g., Flat 402, Block B, Indiranagar"></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <button type="button" id="save-emergency-btn" class="btn btn-secondary">💾 Save Emergency Info</button>
+                        <button type="button" class="btn btn-danger" style="width: auto; padding: 10px 14px;" onclick="copySOSDetails()">📋 Copy SOS</button>
+                        <span id="emergency-save-status" class="status-msg"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. ACTIVE DAILY HEALTH & ROUTINE LOG SECTION -->
+            <section class="form-section daily-log-section">
+                <div class="emergency-header">
+                    <h2>📋 Active Daily Health &amp; Routine Logs</h2>
+                    <span class="badge" style="background:#e0f2fe; color:#0369a1;">Daily Tracking</span>
+                </div>
+                <p class="form-intro">Keep track of your daily medicines, log your vitals, and generate caregiver updates:</p>
+
+                <!-- MEDICINE SCHEDULE CHECKLIST -->
+                <div class="medication-checklist-card">
+                    <h4>💊 Today's Medication Tracker</h4>
+                    <div class="med-checkbox-grid">
+                        <label class="med-toggle-item">
+                            <input type="checkbox" id="med-morning" onchange="toggleMedicationLog('Morning')">
+                            <span>🌅 Morning Dose</span>
+                        </label>
+                        <label class="med-toggle-item">
+                            <input type="checkbox" id="med-afternoon" onchange="toggleMedicationLog('Afternoon')">
+                            <span>☀️ Afternoon Dose</span>
+                        </label>
+                        <label class="med-toggle-item">
+                            <input type="checkbox" id="med-night" onchange="toggleMedicationLog('Night')">
+                            <span>🌙 Night Dose</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- HEALTH LOG ENTRY (BP, SUGAR, SYMPTOMS) -->
+                <div class="health-log-entry-card" style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label for="health-log-input" style="margin-bottom:0;">🩺 Health Log (BP, Sugar, Symptoms):</label>
+                        <button type="button" class="mic-field-btn" style="position:static;" onclick="startVoiceForField('health-log-input', 'Health Log')">🎙️ Speak</button>
+                    </div>
+                    <textarea id="health-log-input" rows="2" placeholder="e.g., BP 130/85, took insulin, slight back pain this morning..."></textarea>
+                    
+                    <div style="display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-secondary" style="flex:1;" onclick="saveDailyHealthLog()">📝 Save Health Entry</button>
+                        <button type="button" class="btn btn-primary" style="flex:1;" onclick="generateDailyCaregiverSummary()">📋 View Daily Summary</button>
+                    </div>
+                </div>
+
+                <!-- RECENT ACTIVE LOG FEED -->
+                <div style="margin-top: 15px;">
+                    <h4 style="font-size: 0.95rem; color:#475569; margin-bottom: 8px;">Today's Recorded Entries:</h4>
+                    <div id="daily-log-entries-list" class="daily-log-entries-box">
+                        <p style="font-size:0.85rem; color:#94a3b8; font-style:italic;">No health logs added yet today.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. REQUEST A TASK FORM WITH INDIVIDUAL VOICE INPUTS -->
+            <section class="form-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 10px;">
+                    <h2>Request a Helping Hand</h2>
+                    <div class="voice-lang-bar">
+                        <label for="voice-lang-select" style="margin-bottom:0; font-size:0.85rem; color:#475569;">Voice Language:</label>
+                        <select id="voice-lang-select" class="voice-lang-dropdown">
+                            <option value="en-IN" selected>English (India)</option>
+                            <option value="hi-IN">हिन्दी (Hindi)</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="form-intro">You can type or tap the <strong>🎙️ button</strong> next to any field to speak in English or Hindi:</p>
+                <p id="voice-status-text" class="voice-status-indicator" style="display:none;"></p>
+
+                <form id="task-form">
+                    <!-- TITLE FIELD WITH MIC -->
+                    <div class="form-group">
+                        <label for="task-title">What do you need help with? (Title)</label>
+                        <div class="input-with-mic">
+                            <input type="text" id="task-title" placeholder="e.g., Reading banking document details" required>
+                            <button type="button" class="mic-field-btn" onclick="startVoiceForField('task-title', 'Title')">🎙️</button>
+                        </div>
+                    </div>
+
+                    <!-- SHORT DESCRIPTION FIELD WITH MIC -->
+                    <div class="form-group">
                         <label for="task-desc">Short Description</label>
-                        <textarea id="task-desc" rows="4" placeholder="Explain what neighbors can do to assist... You can type in English, Hindi, or Hinglish!" required></textarea>
+                        <div class="input-with-mic textarea-mic-wrapper">
+                            <textarea id="task-desc" rows="4" placeholder="Explain what neighbors can do to assist..." required></textarea>
+                            <button type="button" class="mic-field-btn mic-textarea-btn" onclick="startVoiceForField('task-desc', 'Description')">🎙️</button>
+                        </div>
                     </div>
 
                     <div class="form-row">
+                        <!-- LOCATION FIELD WITH MIC -->
                         <div class="form-group">
-                            <label for="task-location">Your Location/Neighborhood</label>
-                            <input type="text" id="task-location" placeholder="e.g., Connaught Place, New Delhi" required>
+                            <label for="task-location">Your Location/Address</label>
+                            <div class="input-with-mic">
+                                <input type="text" id="task-location" placeholder="e.g., Connaught Place, New Delhi" required>
+                                <button type="button" class="mic-field-btn" onclick="startVoiceForField('task-location', 'Location / Address')">🎙️</button>
+                            </div>
                         </div>
+
                         <div class="form-group">
                             <label for="task-category">Category</label>
                             <select id="task-category">
@@ -63,33 +191,90 @@
                 </form>
             </section>
 
+            <!-- LEADERBOARD -->
             <section class="profile-widget leaderboard-widget">
                 <h3>Top Neighborhood Helpers 🏆</h3>
-                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Verified local youth earning Mitra Coins nearby:</p>
-                <div id="leaderboard-container">
-                    </div>
+                <p style="font-size: 0.9rem; color: #555; margin-bottom: 15px;">Verified local youth earning Mitra Coins &amp; Friendly Ratings:</p>
+                <div id="leaderboard-container"></div>
             </section>
         </div>
 
-        <section class="board-section">
-            <div class="board-header">
-                <h2>All Neighborhood Requests Status</h2>
-                <div class="controls-wrapper">
-                    <input type="text" id="search-input" placeholder="🔍 Filter posts or keywords...">
-                    <select id="filter-select">
-                        <option value="All">All Categories</option>
-                        <option value="Household">Household Chore</option>
-                        <option value="Tech Support">Tech Support</option>
-                        <option value="Heavy Lifting">Heavy Lifting</option>
-                        <option value="Other">Other</option>
-                    </select>
+        <div class="right-column">
+            <!-- INCOMING VOLUNTEER OFFERS AWAITING ACCEPTANCE -->
+            <div id="helper-approval-section" class="approval-box" style="display:none;">
+                <div class="approval-box-header">
+                    <h3>🔔 Help is Available! Do you want to accept?</h3>
+                    <span class="live-dot-pulse">Action Required</span>
+                </div>
+                <p style="font-size: 0.95rem; color: #92400e; margin-bottom: 12px;">
+                    A volunteer has offered to help. Please review and click <strong>Accept</strong> to assign them:
+                </p>
+                <div id="approval-cards-container"></div>
+            </div>
+
+            <!-- ACTIVE IN-PROGRESS SECTION: ASKS IF HELP IS COMPLETED -->
+            <div id="in-progress-section" class="active-progress-box" style="display:none;">
+                <div class="approval-box-header">
+                    <h3>⏳ Help in Progress</h3>
+                    <span class="active-dot-pulse">Ongoing</span>
+                </div>
+                <p style="font-size: 0.95rem; color: #075985; margin-bottom: 12px;">
+                    A volunteer is currently assigned. When they finish, confirm below to release their Mitra Coins and rate them:
+                </p>
+                <div id="in-progress-cards-container"></div>
+            </div>
+
+            <!-- TASK STATUS FEED -->
+            <section class="board-section">
+                <div class="board-header">
+                    <h2>All Neighborhood Requests Status</h2>
+                    <div class="controls-wrapper">
+                        <input type="text" id="search-input" placeholder="🔍 Filter posts or keywords...">
+                        <select id="filter-select">
+                            <option value="All">All Categories</option>
+                            <option value="Household">Household Chore</option>
+                            <option value="Tech Support">Tech Support</option>
+                            <option value="Heavy Lifting">Heavy Lifting</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="task-board" class="task-board"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- COMPLETION & FRIENDLY RATING MODAL -->
+    <div id="rating-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="close-rating-modal-btn">&times;</button>
+            <h2>Confirm Help Done &amp; Rate Volunteer 🎉</h2>
+            <p id="rating-task-title" style="font-weight: bold; margin: 10px 0; color: #0d2c4a; font-size: 1.1rem;"></p>
+            <p>Did volunteer <strong id="rating-helper-name">the helper</strong> finish the work satisfactorily?</p>
+            
+            <div class="rating-choice-group">
+                <label>How friendly and helpful was the volunteer?</label>
+                <div class="rating-buttons">
+                    <button type="button" class="btn rating-btn rating-selected" data-rating="friendly">😊 Very Friendly &amp; Helpful</button>
+                    <button type="button" class="btn rating-btn" data-rating="unfriendly">😐 Neutral / Needs Improvement</button>
                 </div>
             </div>
 
-            <div id="task-board" class="task-board">
-                </div>
-        </section>
-    </main>
+            <button id="submit-completion-btn" class="btn btn-success" style="margin-top: 22px;">✅ Confirm Help Done &amp; Award Mitra Coins</button>
+        </div>
+    </div>
+
+    <!-- DAILY HEALTH & CAREGIVER SUMMARY MODAL -->
+    <div id="summary-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" onclick="closeSummaryModal()">&times;</button>
+            <h2>📋 Daily Health &amp; Activity Summary</h2>
+            <p style="font-size:0.9rem; color:#64748b; margin-bottom:12px;">Consolidated daily briefing for yourself and caregivers:</p>
+            <div id="summary-modal-body" style="text-align:left; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:15px; font-size:0.95rem; line-height:1.5;"></div>
+            <button type="button" class="btn btn-primary" style="margin-top:15px;" onclick="copyDailySummaryText()">📋 Copy Summary for Family WhatsApp</button>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
