@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ElderEase</title>
+    <title>Login - NeighborHelp India</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +14,6 @@
         }
 
         body.login-page {
-            background-color: #0d2c4a;
             background: linear-gradient(180deg, #0e3052 0%, #0a2139 100%);
             min-height: 100vh;
             display: flex;
@@ -30,21 +30,19 @@
 
         .login-brand {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
         }
 
         .login-brand h1 {
             color: #ffffff;
             font-size: 2.1rem;
             font-weight: 700;
-            letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
 
         .login-brand p {
             color: #9ab4cd;
             font-size: 1rem;
-            font-weight: 400;
         }
 
         .login-card-box {
@@ -82,7 +80,6 @@
             font-size: 1rem;
             color: #1a2533;
             outline: none;
-            transition: border-color 0.2s;
         }
 
         .field-group input[type="text"]:focus,
@@ -90,7 +87,6 @@
             border-color: #16528e;
         }
 
-        /* 2-Column Role Selection Cards */
         .role-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -101,15 +97,11 @@
         .role-grid label {
             margin-bottom: 0;
             cursor: pointer;
-            position: relative;
         }
 
-        /* Completely hide default HTML radio circles */
         .role-grid input[type="radio"] {
             position: absolute;
             opacity: 0;
-            width: 0;
-            height: 0;
             pointer-events: none;
         }
 
@@ -129,7 +121,6 @@
 
         .role-box .role-emoji {
             font-size: 1.9rem;
-            line-height: 1;
             margin-bottom: 8px;
             display: block;
         }
@@ -147,7 +138,6 @@
             line-height: 1.35;
         }
 
-        /* Selected Card Blue Border & Soft Background */
         .role-grid input[type="radio"]:checked + .role-box {
             border: 2px solid #1a5b94;
             background-color: #f7faff;
@@ -177,7 +167,7 @@
 
     <div class="login-wrapper">
         <header class="login-brand">
-            <h1>ElderEase 🤝</h1>
+            <h1>NeighborHelp India 🤝</h1>
             <p>Connect. Support. Build Community.</p>
         </header>
 
